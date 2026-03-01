@@ -5,6 +5,7 @@ import { Header } from './components/Layout/Header';
 import { ProjectManager } from './components/ProjectManager/ProjectManager';
 import { GlobalDataForm } from './components/GlobalDataForm/GlobalDataForm';
 import { SectionNav } from './components/SectionNav/SectionNav';
+import { ExportView } from './components/Export/ExportView';
 import './styles/index.css';
 
 function AppInner() {
@@ -23,14 +24,7 @@ function AppInner() {
     if (state.view === 'export') {
       return (
         <div className="main-content">
-          <div className="empty-state">
-            <div className="empty-state-icon">📄</div>
-            <h3>Export — Phase 3</h3>
-            <p>
-              Document export will be built in Phase 3. It will generate a complete Word document
-              using all global data fields and the selected section configuration.
-            </p>
-          </div>
+          <ExportView />
         </div>
       );
     }
