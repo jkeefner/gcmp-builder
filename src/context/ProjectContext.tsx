@@ -14,6 +14,8 @@ type Action =
   | { type: 'UPDATE_GLOBAL_FIELD'; key: keyof GlobalData; value: string }
   | { type: 'UPDATE_SECTION_STATUS'; sectionId: string; status: SectionStatus; skipReason?: string }
   | { type: 'UPDATE_NOTES'; notes: string }
+  | { type: 'UPDATE_SECTION_NARRATIVE'; sectionId: string; narrative: string }
+  | { type: 'SET_ACTIVE_SECTION'; sectionId: string | null }
   | { type: 'MARK_SAVED' };
 
 // ─── REDUCER ──────────────────────────────────────────────────────────────────
@@ -30,7 +32,7 @@ function reducer(state: AppState, action: Action): AppState {
         ...state,
         projects: [...state.projects, project],
         activeProjectId: project.id,
-        view: 'global-data',
+        view: 'dashboard',
         globalDataGroup: 'identity',
         isDirty: true,
       };
@@ -40,7 +42,7 @@ function reducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         activeProjectId: action.id,
-        view: 'global-data',
+        view: 'dashboard',
         globalDataGroup: 'identity',
         isDirty: false,
       };
@@ -103,6 +105,26 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, projects, isDirty: true };
     }
 
+    case 'UPDATE_SECTION_NARRATIVE': {
+      if (!state.activeProjectId) return state;
+      const projects = state.projects.map(p => {
+        if (p.id !== state.activeProjectId) return p;
+        const existing = p.sectionStates[action.sectionId] || { status: 'included' as const };
+        return {
+          ...p,
+          modified: new Date().toISOString(),
+          sectionStates: {
+            ...p.sectionStates,
+            [action.sectionId]: { ...existing, narrative: action.narrative },
+          },
+        };
+      });
+      return { ...state, projects, isDirty: true };
+    }
+
+    case 'SET_ACTIVE_SECTION':
+      return { ...state, activeSectionId: action.sectionId };
+
     case 'MARK_SAVED':
       return { ...state, isDirty: false };
 
@@ -119,6 +141,7 @@ const initialState: AppState = {
   view: 'home',
   globalDataGroup: 'identity',
   isDirty: false,
+  activeSectionId: null,
 };
 
 // ─── CONTEXT ──────────────────────────────────────────────────────────────────

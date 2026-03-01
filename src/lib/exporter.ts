@@ -6,12 +6,46 @@ import {
   AlignmentType, HeadingLevel, BorderStyle, WidthType, ShadingType,
   LevelFormat, TableOfContents,
 } from 'docx';
-import type { Project } from '../types';
-import { C, allBorders, para, divider, pageBreak, heading1, bullet } from './docHelpers';
+import type { Project, SectionStates } from '../types';
+import { C, allBorders, para, divider, pageBreak, heading1, bullet, narrativeBlock } from './docHelpers';
 import { buildPartI } from './docSections/partI';
 import { buildPartII, buildPartIII } from './docSections/partsIIIII';
 import { buildPartIV } from './docSections/partIV';
 import { buildPartV, buildPartVI } from './docSections/partsVVI';
+
+
+// ─── NARRATIVE INJECTOR ───────────────────────────────────────────────────────
+// Post-processes the assembled children array.
+// After each Heading 2 node whose text starts with a section ID (e.g. "1.1  Cover Page…"),
+// inserts the engineer's narrative block if one exists.
+
+function injectNarratives(
+  nodes: (Paragraph | Table)[],
+  ss: SectionStates
+): (Paragraph | Table)[] {
+  const result: (Paragraph | Table)[] = [];
+  for (const node of nodes) {
+    result.push(node);
+    // Heading 2 paragraphs have the section number as their first text run
+    if (node instanceof Paragraph) {
+      const runs = (node as any)._runs ?? (node as any).options?.children ?? [];
+      const firstRun = runs[0];
+      const text: string = firstRun?.text ?? firstRun?.options?.text ?? '';
+      // Match "1.1  Cover Page..." or "4A.2  Waste Rock..."
+      const match = text.match(/^([\dA-Z]+\.[\dA-Z]+(?:\.\d+)?)\s/);
+      if (match) {
+        const secId = match[1];
+        const narrative = ss[secId]?.narrative;
+        if (narrative && narrative.trim() !== '') {
+          for (const nb of narrativeBlock(narrative)) {
+            result.push(nb);
+          }
+        }
+      }
+    }
+  }
+  return result;
+}
 
 // ─── COVER PAGE ───────────────────────────────────────────────────────────────
 
@@ -137,7 +171,7 @@ export async function exportGCMP(project: Project): Promise<void> {
   const d = project.globalData;
   const ss = project.sectionStates;
 
-  const children = [
+  const rawChildren = [
     ...buildCoverPage(project),
     // TOC
     new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 360, after: 60 },
@@ -157,6 +191,8 @@ export async function exportGCMP(project: Project): Promise<void> {
     ...buildPartV(d, ss),
     ...buildPartVI(d, ss),
   ];
+
+  const children = injectNarratives(rawChildren, ss);
 
   const doc = new Document({
     features: { updateFields: true },

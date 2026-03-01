@@ -154,8 +154,8 @@ export function ProjectManager() {
             ['✅', 'Phase 1', 'Section library document — complete'],
             ['✅', 'Phase 2', 'App shell, project management, global data entry — current'],
             ['✅', 'Phase 3', 'Word export — guidance notes, template language, global data populated — current'],
-            ['🔲', 'Phase 4', 'Section content forms — structured data entry per section'],
-            ['🔲', 'Phase 5', 'Priority section validation checklists, TARP builder, completeness checks'],
+            ['✅', 'Phase 4', 'Section narrative editor — write/paste site-specific text per section — current'],
+            ['✅', 'Phase 5', 'Completeness dashboard — health score, export readiness, section progress — current'],
             ['🔲', 'Phase 6', 'Full export, Look Up integrations, offline PWA'],
           ].map(([icon, phase, desc]) => (
             <div key={phase} style={{ display: 'flex', gap: 10, padding: '5px 0', borderBottom: '1px solid var(--border-light)', fontSize: 12 }}>

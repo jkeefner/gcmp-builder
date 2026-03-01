@@ -537,3 +537,45 @@ export function omissionStub(sectionId: string, sectionTitle: string, reason?: s
 // ─── TYPE ALIAS ───────────────────────────────────────────────────────────────
 
 export type DocNode = Paragraph | Table;
+
+// ─── NARRATIVE BLOCK ─────────────────────────────────────────────────────────
+// Renders the engineer's narrative as the section body in the Word export.
+
+export function narrativeBlock(narrative: string): (Paragraph | Table)[] {
+  if (!narrative || narrative.trim() === '') return [];
+  const lines = narrative.split('\n').filter(l => l.trim() !== '');
+  return [
+    new Table({
+      width: { size: 9360, type: WidthType.DXA },
+      borders: {
+        top:    { style: BorderStyle.SINGLE, size: 4, color: '2E75B6' },
+        bottom: { style: BorderStyle.SINGLE, size: 4, color: '2E75B6' },
+        left:   { style: BorderStyle.SINGLE, size: 8, color: '2E75B6' },
+        right:  { style: BorderStyle.SINGLE, size: 4, color: '2E75B6' },
+      },
+      rows: [
+        new TableRow({
+          children: [new TableCell({
+            borders: allBorders,
+            shading: { fill: 'E8F0FA', type: ShadingType.CLEAR },
+            margins: { top: 80, bottom: 60, left: 160, right: 160 },
+            children: [new Paragraph({
+              children: [new TextRun({ text: '✍ SECTION CONTENT', bold: true, font: 'Arial', size: 18, color: '2E75B6' })],
+            })],
+          })],
+        }),
+        ...lines.map(line => new TableRow({
+          children: [new TableCell({
+            borders: allBorders,
+            margins: { top: 80, bottom: 80, left: 200, right: 200 },
+            children: [new Paragraph({
+              spacing: { after: 120 },
+              children: [new TextRun({ text: line, font: 'Arial', size: 22 })],
+            })],
+          })],
+        })),
+      ],
+    }),
+    para(''),
+  ];
+}

@@ -6,6 +6,8 @@ import { ProjectManager } from './components/ProjectManager/ProjectManager';
 import { GlobalDataForm } from './components/GlobalDataForm/GlobalDataForm';
 import { SectionNav } from './components/SectionNav/SectionNav';
 import { ExportView } from './components/Export/ExportView';
+import { SectionEditor } from './components/SectionEditor/SectionEditor';
+import { Dashboard } from './components/Dashboard/Dashboard';
 import './styles/index.css';
 
 function AppInner() {
@@ -15,11 +17,21 @@ function AppInner() {
     if (state.view === 'home' || !activeProject) {
       return <ProjectManager />;
     }
+    if (state.view === 'dashboard') {
+      return (
+        <div className="main-content">
+          <Dashboard />
+        </div>
+      );
+    }
     if (state.view === 'global-data') {
       return <GlobalDataForm />;
     }
     if (state.view === 'sections') {
       return <SectionNav />;
+    }
+    if (state.view === 'section-content') {
+      return <SectionEditor />;
     }
     if (state.view === 'export') {
       return (

@@ -3,7 +3,7 @@
 import type { GlobalData, SectionStates } from '../../types';
 import {
   para, heading1, divider, pageBreak, partHeading,
-  sectionHeader, guidanceBox, actionBox, metaTable, lookupBox,
+  sectionHeader, guidanceBox, actionBox, metaTable, lookupBox, narrativeBlock,
   priorityBadge, checklistBox, omissionStub, fill,
   type DocNode,
 } from '../docHelpers';
@@ -27,6 +27,7 @@ export function buildPartII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('5.1', 'Geotechnical Model Overview and Data Confidence',
             '[REQUIRED] — All operations', 'Sections 5.2–5.6, Chapter 6'),
+          ...narrativeBlock(ss['5.1']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'The geotechnical model must be described as an evolving, living database — not a static report — continuously updated as mining progresses.',
             'CSIRO LOP Table 8.1 defines five levels of data confidence by project stage (Level 1 Conceptual through Level 5 Operations). The current data confidence level directly determines acceptable design methods and factors of safety.',
@@ -46,6 +47,7 @@ export function buildPartII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('5.2', 'Regional and Site Geology',
             '[REQUIRED] — All operations', 'Sections 5.3, 5.4, 5.5, Chapter 6'),
+          ...narrativeBlock(ss['5.2']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Geology controls the type, location, and mechanism of potential slope failures. A sound geological model is the foundation of every other section in this chapter.',
             'This section should describe lithological units, their spatial distribution, relative competence, and geotechnical significance.',
@@ -61,6 +63,7 @@ export function buildPartII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('5.3', 'Structural Geology and Discontinuity Characterization',
             '[REQUIRED] — All operations', 'Sections 5.4, 6.2, 6.3'),
+          ...narrativeBlock(ss['5.3']?.narrative ?? ''),
           priorityBadge('Structure is the primary control on failure mechanism in most hard rock pits. Gaps here propagate through every downstream design and monitoring decision.'),
           para(''),
           checklistBox('Structural Geology', [
@@ -99,6 +102,7 @@ export function buildPartII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('5.4', 'Rock Mass Characterization',
             '[REQUIRED] — All operations', 'Sections 5.3, 6.2, 6.3'),
+          ...narrativeBlock(ss['5.4']?.narrative ?? ''),
           priorityBadge('Rock mass parameters are the direct inputs to stability analysis. Poorly documented or inappropriate parameters undermine the validity of every FoS calculation in the GCMP.'),
           para(''),
           checklistBox('Rock Mass Characterization', [
@@ -139,6 +143,7 @@ export function buildPartII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('5.5', 'Hydrogeological Model and Groundwater Conditions',
             '[REQUIRED] — All operations', 'Sections 9.1, 9.2, 8.6'),
+          ...narrativeBlock(ss['5.5']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Pore pressure is often the most significant operational variable affecting slope stability — yet also the most directly controllable through depressurization programs.',
             'CSIRO LOP dedicates an entire chapter (Chapter 6) to hydrogeology. Failure to characterize groundwater conditions is a common gap in GCMPs.',
@@ -157,6 +162,7 @@ export function buildPartII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('5.6', 'In Situ Stress',
             '[CONDITIONAL] — Required for deep pits (>400m), weak rock, or stress-driven failure mechanisms', 'Sections 5.4, 6.3'),
+          ...narrativeBlock(ss['5.6']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'For most open pit slopes, gravitational stress dominates and in situ stress measurement is not required.',
             'However, for deep pits (>400m) or where toppling/buckling failure modes are suspected, stress characterization is important.',
@@ -183,6 +189,7 @@ export function buildPartIII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('6.1', 'Design Philosophy and Approach',
             '[REQUIRED] — All operations', 'All of Chapter 6'),
+          ...narrativeBlock(ss['6.1']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Documents the engineering philosophy underlying slope design — this is what gets tested when a slope underperforms.',
             'Should state explicitly whether design is deterministic (FoS-based) or probabilistic (PoF-based), or a combination — and why.',
@@ -203,6 +210,7 @@ export function buildPartIII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('6.2', 'Geotechnical Domains',
             '[REQUIRED] — All operations', 'Sections 5.2–5.5, 6.3, 6.4'),
+          ...narrativeBlock(ss['6.2']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Geotechnical domains are areas of the pit where geological, structural, and rock mass conditions are sufficiently similar that a single set of design parameters can be applied.',
             'Domain boundaries are defined by geological contacts, structural domain boundaries, weathering fronts, and rock mass transitions.',
@@ -218,6 +226,7 @@ export function buildPartIII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('6.3', 'Slope Design Criteria and Acceptance Criteria',
             '[REQUIRED] — All operations', 'Sections 6.1, 6.2, 6.4'),
+          ...narrativeBlock(ss['6.3']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'This is the most critical technical section of the GCMP. Slope design criteria define the minimum acceptable FoS or maximum acceptable PoF.',
             'CSIRO LOP Table 9.3: bench FoS ≥1.1, inter-ramp FoS ≥1.2–1.3, overall FoS ≥1.3–1.5, depending on consequence.',
@@ -242,6 +251,7 @@ export function buildPartIII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('6.4', 'Design Sectors and Slope Angles',
             '[REQUIRED] — All operations', 'Sections 6.2, 6.3'),
+          ...narrativeBlock(ss['6.4']?.narrative ?? ''),
           priorityBadge('This section is what pit engineers and surveyors check against daily. Ambiguous or incomplete sector definitions are a direct operational ground control risk.'),
           para(''),
           checklistBox('Design Sectors and Slope Angles', [
@@ -278,6 +288,7 @@ export function buildPartIII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('6.5', 'Failure Modes and Mechanisms',
             '[REQUIRED] — All operations', 'Sections 5.3, 6.3, 10.1'),
+          ...narrativeBlock(ss['6.5']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Failure mode identification drives monitoring design, TARP thresholds, and emergency response planning.',
             'CSIRO LOP Chapter 9: primary failure modes — planar sliding, wedge sliding, toppling, rotational, complex multi-mechanism, and bench-scale ravelling.',
@@ -293,6 +304,7 @@ export function buildPartIII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('6.6', 'Seismic Hazard and Earthquake Design Loads',
             '[CONDITIONAL] — Required if PGA >0.05g or if regulatory requirement exists', 'Sections 3.2, 6.3'),
+          ...narrativeBlock(ss['6.6']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'For operations in the western US (Idaho, Nevada, Montana, Utah), seismic design loads are often significant and may be required by state operating permits.',
             'Pseudo-static seismic coefficients used in stability analysis must be documented and their basis stated.',
@@ -321,6 +333,7 @@ export function buildPartIII(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('6.7', 'Weak Rock and Weathering Considerations',
             '[CONDITIONAL] — Required where weathered, oxidized, or weak rock zones exist', 'Sections 5.2, 5.4, 6.3, 6.4'),
+          ...narrativeBlock(ss['6.7']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Weathered and oxidized zones commonly have degraded rock mass properties and different failure mechanisms than fresh rock.',
             'CSIRO LOP companion volume (Martin & Stacey 2018) dedicates an entire book to weak rock slope design.',

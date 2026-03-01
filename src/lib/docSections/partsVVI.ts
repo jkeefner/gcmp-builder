@@ -3,7 +3,7 @@
 import type { GlobalData, SectionStates } from '../../types';
 import {
   para, heading1, divider, pageBreak, partHeading,
-  sectionHeader, guidanceBox, metaTable,
+  sectionHeader, guidanceBox, metaTable, narrativeBlock,
   omissionStub, fill,
   type DocNode,
 } from '../docHelpers';
@@ -27,6 +27,7 @@ export function buildPartV(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('12.1', 'Ground Movement Event Reporting',
             '[REQUIRED] — All operations', 'Sections 10.3, 11.1'),
+          ...narrativeBlock(ss['12.1']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'All ground movement events — from rockfalls to bench failures to significant monitoring exceedances — must be reported and documented.',
             'MSHA requires immediate notification for certain ground movement incidents (30 CFR Part 50). Australian State Acts have equivalent requirements.',
@@ -41,6 +42,7 @@ export function buildPartV(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('12.2', 'Ground Movement Investigation Procedure',
             '[REQUIRED] — All operations', 'Sections 10.1, 12.1'),
+          ...narrativeBlock(ss['12.2']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Investigation of ground movement events — even minor ones — generates the most valuable data for improving slope management.',
             'Define: investigation team composition, investigation timeline, root cause analysis method, and action follow-up.',
@@ -60,6 +62,7 @@ export function buildPartV(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('13.1', 'GCMP Review Schedule and Update Triggers',
             '[REQUIRED] — All operations', 'Sections 1.2, 2.2'),
+          ...narrativeBlock(ss['13.1']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'A GCMP that is not reviewed and updated is a compliance document, not a management tool.',
             'WA DMIRS and CSIRO LOP both emphasize that the GCMP must be a living document — updated in response to new information, changed conditions, or significant events.',
@@ -78,6 +81,7 @@ export function buildPartV(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('13.2', 'Internal Geotechnical Audits',
             '[REQUIRED] — All operations', 'Sections 4.1, 13.1'),
+          ...narrativeBlock(ss['13.2']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Internal audits independently verify that the GCMP is being implemented as written — they identify gaps between documented procedures and actual practice.',
             'Common audit findings: monitoring not performed at specified frequency, training records incomplete, TARP thresholds not reviewed after events, hazard maps outdated.',
@@ -91,6 +95,7 @@ export function buildPartV(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('13.3', 'External / Third-Party Geotechnical Review',
             '[RECOMMENDED] — All major operations; [CONDITIONAL] — Small low-consequence operations', 'Sections 4.1, 6.1, 13.2'),
+          ...narrativeBlock(ss['13.3']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Third-party reviews by independent geotechnical professionals provide an objective check on slope design and GCMP adequacy.',
             'For large, complex, or high-consequence operations, external reviews are best practice and increasingly required by lenders, insurers, and corporate governance.',
@@ -119,6 +124,7 @@ export function buildPartVI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('14.1', 'Closure Slope Design Philosophy',
             '[REQUIRED] — Operations in closure planning; [CONDITIONAL] — Early stage (include placeholder)', 'Sections 6.1, 6.3'),
+          ...narrativeBlock(ss['14.1']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Closure slopes must achieve long-term stability without ongoing maintenance — the design criteria are fundamentally different from operating slopes.',
             'CSIRO LOP Chapter 13 specifically addresses closure slope design — the regulatory and social context fundamentally changes the acceptable risk framework.',
@@ -138,6 +144,7 @@ export function buildPartVI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('14.2', 'Long-Term Monitoring and Post-Closure Obligations',
             '[CONDITIONAL] — Required where post-closure monitoring is required by permit or corporate obligation', 'Sections 8.1, 13.3'),
+          ...narrativeBlock(ss['14.2']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Post-closure monitoring plans are increasingly required by regulators, particularly for large open pits where pit lake formation or long-term slope movement is expected.',
             'Monitoring programs must be designed to be sustainable over decades with minimal ongoing maintenance — simpler technologies are preferred.',

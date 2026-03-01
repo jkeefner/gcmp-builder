@@ -70,9 +70,8 @@ export function SectionNav() {
       </div>
 
       <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 16, lineHeight: 1.5, padding: '10px 14px', background: 'var(--blue-ghost)', borderRadius: 'var(--r-sm)', border: '1px solid var(--blue-pale)' }}>
-        <strong>Phase 2 — View Only.</strong> Toggle sections below to mark them as Included or Skipped for your operation.
-        Any section can be skipped at the engineer's discretion — the final document will include a flagged omission note.
-        Section content forms (guidance, template language, data entry) will be built in Phases 4–5.
+        Toggle sections to <strong>Include</strong> or <strong>Skip</strong>, then click <strong>✎ Write</strong> on any section to add your site-specific narrative.
+        Narrative text appears in the exported Word document ahead of the guidance notes and template language.
         <br /><span style={{ color: 'var(--red-priority)', fontWeight: 600 }}>★ Priority sections</span> receive enhanced validation checklists in Phase 5.
       </div>
 
@@ -117,9 +116,11 @@ export function SectionNav() {
                   {chapter.sections.map(section => {
                     const status = getSectionStatus(section.id);
                     const isSkipped = status === 'skipped';
+                    const secState = activeProject?.sectionStates[section.id];
+                    const hasNarrative = !!(secState?.narrative && secState.narrative.trim() !== '');
 
                     return (
-                      <div key={section.id} className="section-row" style={{ opacity: isSkipped ? 0.6 : 1 }}>
+                      <div key={section.id} className={`section-row${hasNarrative ? ' has-narrative' : ''}`} style={{ opacity: isSkipped ? 0.6 : 1 }}>
                         <span className="section-id">{section.id}</span>
                         <div style={{ flex: 1 }}>
                           <div className="section-title" style={{ textDecoration: isSkipped ? 'line-through' : 'none' }}>
@@ -156,6 +157,16 @@ export function SectionNav() {
                             — Skip
                           </button>
                         </div>
+                        <button
+                          className={`section-edit-btn${hasNarrative ? ' has-content' : ''}`}
+                          title={hasNarrative ? 'Edit section narrative (content entered)' : 'Write section narrative'}
+                          onClick={() => {
+                            dispatch({ type: 'SET_ACTIVE_SECTION', sectionId: section.id });
+                            dispatch({ type: 'SET_VIEW', view: 'section-content' });
+                          }}
+                        >
+                          {hasNarrative ? '✎ Edit' : '✎ Write'}
+                        </button>
                       </div>
                     );
                   })}

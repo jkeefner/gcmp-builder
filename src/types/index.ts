@@ -121,7 +121,8 @@ export type SectionStatus = 'included' | 'skipped' | 'not-applicable';
 export interface SectionState {
   status: SectionStatus;
   skipReason?: string;
-  completionPercent?: number;     // Phase 3+
+  completionPercent?: number;
+  narrative?: string;             // Phase 4 — engineer-authored section body
 }
 
 export type SectionStates = Record<string, SectionState>;
@@ -189,7 +190,7 @@ export function createEmptyGlobalData(): GlobalData {
 
 // ─── APP STATE ────────────────────────────────────────────────────────────────
 
-export type AppView = 'home' | 'global-data' | 'sections' | 'export';
+export type AppView = 'home' | 'dashboard' | 'global-data' | 'sections' | 'section-content' | 'export';
 
 export interface AppState {
   projects: Project[];
@@ -197,6 +198,7 @@ export interface AppState {
   view: AppView;
   globalDataGroup: string;        // which form group is visible
   isDirty: boolean;               // unsaved changes
+  activeSectionId: string | null; // Phase 4 — section being edited
 }
 
 // ─── LOOKUP REFERENCES ────────────────────────────────────────────────────────

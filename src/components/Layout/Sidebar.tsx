@@ -60,6 +60,14 @@ export function Sidebar() {
             <div className="sidebar-section-label" style={{ marginTop: 8 }}>Current Project</div>
 
             <button
+              className={`sidebar-item${isActive('dashboard') ? ' active' : ''}`}
+              onClick={() => setView('dashboard')}
+            >
+              <span className="sidebar-item-icon">📊</span>
+              <span className="sidebar-item-label">Dashboard</span>
+            </button>
+
+            <button
               className={`sidebar-item${isActive('global-data') ? ' active' : ''}`}
               onClick={() => setView('global-data')}
             >
@@ -80,11 +88,9 @@ export function Sidebar() {
             <button
               className={`sidebar-item${isActive('export') ? ' active' : ''}`}
               onClick={() => setView('export')}
-              style={{ opacity: 0.5, cursor: 'not-allowed' }}
             >
               <span className="sidebar-item-icon">📄</span>
               <span className="sidebar-item-label">Export Document</span>
-              <span className="sidebar-item-badge" style={{ background: 'rgba(255,255,255,.05)' }}>Phase 3</span>
             </button>
           </>
         )}

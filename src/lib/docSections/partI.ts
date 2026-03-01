@@ -3,7 +3,7 @@
 import type { GlobalData, SectionStates } from '../../types';
 import {
   para, heading1, divider, pageBreak, bullet, partHeading,
-  sectionHeader, guidanceBox, actionBox, templateBox, metaTable,
+  sectionHeader, guidanceBox, actionBox, templateBox, metaTable, narrativeBlock,
   priorityBadge, checklistBox, infraChoiceBox, omissionStub, fill,
   type DocNode,
 } from '../docHelpers';
@@ -28,6 +28,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('1.1', 'Cover Page and Document Identification',
             '[REQUIRED] — All operations', 'Sections 1.2, 1.3, 2.1, 2.2, 5.1'),
+          ...narrativeBlock(ss['1.1']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Regulators and auditors use the cover page to confirm the document is current and properly authorized.',
             'A GCMP with an outdated revision date or missing approvals is commonly cited in audit findings.',
@@ -61,6 +62,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('1.2', 'Revision History and Document Control',
             '[REQUIRED] — All operations', 'Sections 1.1, 13.1'),
+          ...narrativeBlock(ss['1.2']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Regulators require evidence that the GCMP is a living document reviewed at specified intervals.',
             'Version control is critical when multiple consultants or staff contribute. Document control failures are among the most common GCMP audit deficiencies.',
@@ -86,6 +88,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('1.3', 'Distribution List and Acknowledgment',
             '[REQUIRED] — All operations', 'Section 1.1, Chapter 4'),
+          ...narrativeBlock(ss['1.3']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Confirms that key personnel have received and acknowledged the GCMP — an important element of due diligence.',
             'Australian regulators (WA DMIRS) and auditors often check that the GCMP has been distributed to operational supervisors, not just filed on the engineer\'s computer.',
@@ -108,6 +111,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('2.1', 'Purpose and Objectives',
             '[REQUIRED] — All operations', 'All chapters'),
+          ...narrativeBlock(ss['2.1']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Sets the intent of the document — the \'why\'. Auditors use this to test whether the GCMP is a genuine management tool or a compliance-only filing.',
             'CSIRO LOP states that a GCMP must address safety, ore recovery, and financial return — not safety alone.',
@@ -123,6 +127,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('2.2', 'Scope',
             '[REQUIRED] — All operations', 'Sections 4A.1–4A.4'),
+          ...narrativeBlock(ss['2.2']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Defines physical and operational boundaries — what is and is not covered. This protects the engineer and company if a slope failure occurs in an area not addressed by the GCMP.',
             'Must explicitly list all geotechnical infrastructure covered: pit walls, waste dumps, haul roads, any in-pit structures.',
@@ -148,6 +153,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('2.3', 'Regulatory Framework and Compliance',
             '[REQUIRED] — All operations', 'All chapters'),
+          ...narrativeBlock(ss['2.3']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Demonstrates regulatory awareness and protects the mine against claims of non-compliance.',
             'For US operations: Primary federal standard is 30 CFR Part 56 (Surface Metal/Nonmetal Mines). Key sections: 56.3130–56.3201 (ground stability), 56.3401 (catch berms), 30 CFR Part 50 (incident reporting).',
@@ -169,6 +175,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('2.4', 'References and Related Documents',
             '[REQUIRED] — All operations', 'All chapters'),
+          ...narrativeBlock(ss['2.4']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Creates a single reference list for all documents cited in the GCMP.',
             'Auditors check that referenced documents exist, are current, and are accessible at site.',
@@ -188,6 +195,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('3.1', 'Mine Location and Site Setting',
             '[REQUIRED] — All operations', 'Sections 3.2, 6.2, 6.4, 6.5'),
+          ...narrativeBlock(ss['3.1']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Location and physiographic setting directly affect geotechnical conditions: elevation, topographic relief, climate, seismicity, and proximity to infrastructure.',
             'Remote locations affect response times in TARPs — emergency evacuation routes must be described here.',
@@ -211,6 +219,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('3.2', 'Climate and Hydrology Overview',
             '[REQUIRED] — All operations', 'Sections 6.4, 7.1, 9.1, 10.2'),
+          ...narrativeBlock(ss['3.2']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Climate controls pore pressures, freeze-thaw degradation of slopes, operational windows for monitoring access, and seasonal hazard cycles.',
             'Extreme precipitation events are a common trigger for slope failures — annual precipitation, probable maximum precipitation (PMP), and design storm events belong here.',
@@ -236,6 +245,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('3.3', 'Mine History and Previous Geotechnical Studies',
             '[REQUIRED] — Existing operations; [CONDITIONAL] — Greenfields', 'Sections 6.1–6.6'),
+          ...narrativeBlock(ss['3.3']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Previous ground movement events, precursor slope behavior, and historic geotechnical investigations are among the most valuable data for understanding slope performance.',
             'At reopened mines, institutional knowledge is at risk of being lost — documenting the historical record here is critical.',
@@ -260,6 +270,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('4.1', 'Organizational Structure and Ground Control Responsibilities',
             '[REQUIRED] — All operations', 'Sections 4.2, 13.1, 14.1'),
+          ...narrativeBlock(ss['4.1']?.narrative ?? ''),
           priorityBadge('Regulators and auditors scrutinize this section first. Stop-work authority, sign-off protocols, and contractor accountability must be explicitly defined.'),
           para(''),
           checklistBox('Roles and Responsibilities', [
@@ -298,6 +309,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('4.2', 'Competency Requirements',
             '[REQUIRED] — All operations', 'Sections 4.1, 13.3'),
+          ...narrativeBlock(ss['4.2']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Specifying minimum competency requirements for geotechnical personnel protects the mine legally and ensures continuity of standards.',
             'CSIRO LOP and WA DMIRS both emphasize that GCMPs must be maintained by "competent persons" — what constitutes competency should be explicitly defined.',
@@ -321,6 +333,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('4A.1', 'Pit Slopes and Associated Structures',
             '[REQUIRED] — All operations', 'Chapters 5–11, 14'),
+          ...narrativeBlock(ss['4A.1']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Pit slopes — including bench faces, inter-ramp slopes, overall slopes, haul ramps, and in-pit roads — are the primary subject of this GCMP.',
             'This section confirms the pit scope entered in Section 2.2 and establishes the baseline assumption that all subsequent chapters apply to pit slopes unless otherwise noted.',
@@ -336,6 +349,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('4A.2', 'Waste Rock Dumps and Overburden Stockpiles',
             '[CONDITIONAL] — Include if waste dumps are present', 'Sections 2.2, 4A.1'),
+          ...narrativeBlock(ss['4A.2']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Waste rock dumps are geotechnical structures with failure modes distinct from pit slopes: mass sliding, liquefaction of base materials, piping, and underdrain failure.',
             'Large or high-consequence waste dumps often warrant a dedicated management plan.',
@@ -359,6 +373,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('4A.3', 'Heap Leach Facilities',
             '[CONDITIONAL] — Include if heap leach pad is present or planned', 'Sections 2.2, 4A.1'),
+          ...narrativeBlock(ss['4A.3']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'Heap leach facilities combine geotechnical embankment engineering with process fluid management — a specialized function.',
             'Most operators maintain a separate Heap Leach Facility Management Plan — cross-reference is the most common approach.',
@@ -382,6 +397,7 @@ export function buildPartI(d: GlobalData, ss: SectionStates): DocNode[] {
       : [
           ...sectionHeader('4A.4', 'Tailings Storage Facilities',
             '[CONDITIONAL] — Include if TSF is present or planned; separate plan strongly recommended per GISTM 2020', 'Sections 2.2, 4A.1'),
+          ...narrativeBlock(ss['4A.4']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
             'TSFs are among the highest-consequence geotechnical structures in mining. The global industry has moved strongly toward requiring standalone TSF management plans since Brumadinho.',
             'GISTM 2020 recommends dedicated tailings management documentation separate from the GCMP.',

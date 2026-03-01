@@ -19,6 +19,7 @@ export function ExportView() {
   const includedCount = totalSections - skippedCount;
 
   const filledFields = Object.values(d).filter(v => v && v.toString().trim() !== '').length;
+  const narrativeCount = Object.values(ss).filter(s => s.narrative && s.narrative.trim() !== '').length;
   const totalFields = 65;
   const fieldsPct = Math.round((filledFields / totalFields) * 100);
 
@@ -71,6 +72,10 @@ export function ExportView() {
           <div className="summary-value">{filledFields}/{totalFields}</div>
           <div className="summary-label">Fields entered</div>
         </div>
+        <div className="export-summary-card">
+          <div className="summary-value">{narrativeCount}</div>
+          <div className="summary-label">Sections with narrative</div>
+        </div>
       </div>
 
       {/* Document info */}
@@ -117,7 +122,7 @@ export function ExportView() {
           {skippedCount > 0 && <li>✓ Omission stubs for {skippedCount} skipped sections with explanatory notes</li>}
         </ul>
         <p className="export-note">
-          <strong>Phase 3 document.</strong> Section body content forms (where you enter section-specific data through the app) are Phase 4. For now, sections contain guidance notes and template language — you complete the site-specific content directly in the Word document.
+          <strong>Phase 3 document.</strong> Each section now has a narrative editor — use ✎ Write in the Section Navigator to author section bodies. Narratives appear in the export above the template language guidance box. Sections without a narrative will show only the template language and guidance notes.
         </p>
       </div>
 
