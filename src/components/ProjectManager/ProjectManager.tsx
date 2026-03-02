@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useProject } from '../../context/ProjectContext';
+import type { Project } from '../../types';
 import { TOTAL_FIELDS } from '../../data/globalFields';
 import { TOTAL_SECTIONS, PRIORITY_SECTIONS } from '../../data/sections';
 
@@ -27,6 +28,44 @@ export function ProjectManager() {
     if (confirm('Delete this project? This cannot be undone.')) {
       dispatch({ type: 'DELETE_PROJECT', id });
     }
+  };
+
+  const handleExportJSON = (e: React.MouseEvent, proj: Project) => {
+    e.stopPropagation();
+    const json = JSON.stringify(proj, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const safeName = (proj.globalData.mine_name || 'project').replace(/[^a-zA-Z0-9_-]/g, '_');
+    a.download = `GCMP_${safeName}_backup.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const importRef = React.useRef<HTMLInputElement>(null);
+
+  const handleImportJSON = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const project = JSON.parse(ev.target?.result as string);
+        if (!project.id || !project.globalData) throw new Error('Invalid');
+        const exists = state.projects.find((p: Project) => p.id === project.id);
+        const msg = exists
+          ? `Overwrite existing project "${project.globalData.mine_name || 'Unnamed'}"?`
+          : `Import "${project.globalData.mine_name || 'Unnamed'}"?`;
+        if (window.confirm(msg)) dispatch({ type: 'IMPORT_PROJECT', project });
+      } catch {
+        alert('Invalid project file. Select a GCMP Builder .json backup.');
+      }
+      if (importRef.current) importRef.current.value = '';
+    };
+    reader.readAsText(file);
   };
 
   const formatDate = (iso: string) => {
@@ -127,6 +166,13 @@ export function ProjectManager() {
                       {isActive ? '✓ Active' : 'Open'}
                     </button>
                     <button
+                      className="btn btn-secondary btn-sm"
+                      onClick={e => handleExportJSON(e, proj)}
+                      title="Download project as JSON backup"
+                    >
+                      ⬇ Backup
+                    </button>
+                    <button
                       className="btn btn-danger btn-sm"
                       onClick={e => handleDelete(e, proj.id)}
                     >
@@ -138,6 +184,22 @@ export function ProjectManager() {
             })}
           </div>
         )}
+
+        <div className="import-project-row">
+          <input
+            ref={importRef}
+            type="file"
+            accept=".json"
+            style={{ display: 'none' }}
+            onChange={handleImportJSON}
+          />
+          <button
+            className="btn btn-secondary btn-sm"
+            onClick={() => importRef.current?.click()}
+          >
+            ⬆ Import project from backup (.json)
+          </button>
+        </div>
 
         {state.projects.length === 0 && (
           <div className="empty-state">
@@ -156,7 +218,7 @@ export function ProjectManager() {
             ['✅', 'Phase 3', 'Word export — guidance notes, template language, global data populated — current'],
             ['✅', 'Phase 4', 'Section narrative editor — write/paste site-specific text per section — current'],
             ['✅', 'Phase 5', 'Completeness dashboard — health score, export readiness, section progress — current'],
-            ['🔲', 'Phase 6', 'Full export, Look Up integrations, offline PWA'],
+            ['✅', 'Phase 6', 'PWA install, lookup integrations, project backup/restore — current'],
           ].map(([icon, phase, desc]) => (
             <div key={phase} style={{ display: 'flex', gap: 10, padding: '5px 0', borderBottom: '1px solid var(--border-light)', fontSize: 12 }}>
               <span style={{ fontSize: 14, flexShrink: 0 }}>{icon}</span>

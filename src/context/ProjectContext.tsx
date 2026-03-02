@@ -16,6 +16,7 @@ type Action =
   | { type: 'UPDATE_NOTES'; notes: string }
   | { type: 'UPDATE_SECTION_NARRATIVE'; sectionId: string; narrative: string }
   | { type: 'SET_ACTIVE_SECTION'; sectionId: string | null }
+  | { type: 'IMPORT_PROJECT'; project: Project }
   | { type: 'MARK_SAVED' };
 
 // ─── REDUCER ──────────────────────────────────────────────────────────────────
@@ -124,6 +125,20 @@ function reducer(state: AppState, action: Action): AppState {
 
     case 'SET_ACTIVE_SECTION':
       return { ...state, activeSectionId: action.sectionId };
+
+    case 'IMPORT_PROJECT': {
+      const exists = state.projects.find(p => p.id === action.project.id);
+      const projects = exists
+        ? state.projects.map(p => p.id === action.project.id ? action.project : p)
+        : [...state.projects, action.project];
+      return {
+        ...state,
+        projects,
+        activeProjectId: action.project.id,
+        view: 'dashboard',
+        isDirty: true,
+      };
+    }
 
     case 'MARK_SAVED':
       return { ...state, isDirty: false };

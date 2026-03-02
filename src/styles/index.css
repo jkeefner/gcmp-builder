@@ -2210,3 +2210,25 @@ html, body, #root {
   .dash-two-col { grid-template-columns: 1fr; }
   .dash-group-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ─── PHASE 6 — PWA + BACKUP ──────────────────────────────────────────────── */
+
+.install-btn {
+  background: #f0fff4;
+  color: #2a7a4b;
+  border: 1px solid #a7d8b8;
+  border-radius: var(--r-sm);
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--t-fast);
+  white-space: nowrap;
+}
+.install-btn:hover { background: #2a7a4b; color: #fff; border-color: #2a7a4b; }
+
+.import-project-row {
+  padding: 10px 0 4px;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}

@@ -88,6 +88,10 @@ export const FIELD_GROUPS: FieldGroup[] = [
         placeholder: 'e.g. 44.3521° N',
         hint: 'Used for seismic hazard and precipitation look-ups.',
         sectionRef: '3.1',
+        lookups: [
+          { label: 'Google Maps — find coordinates', url: 'https://maps.google.com', description: 'Right-click on the map → "What\'s here?" to get lat/long' },
+          { label: 'USGS National Map Viewer', url: 'https://apps.nationalmap.gov/viewer/', description: 'Right-click on topographic map for coordinates' },
+        ],
       },
       {
         key: 'site_longitude',
@@ -313,6 +317,11 @@ export const FIELD_GROUPS: FieldGroup[] = [
       {
         key: 'regulatory_framework',
         label: 'Primary Regulatory Framework',
+        lookups: [
+          { label: 'MSHA 30 CFR Part 56 — Surface Metal/Nonmetal', url: 'https://www.ecfr.gov/current/title-30/chapter-I/subchapter-O/part-56', description: 'Federal safety standards for surface metal and nonmetal mines' },
+          { label: 'WA DMIRS Ground Control Guideline', url: 'https://www.dmp.wa.gov.au/Safety/Ground-control-5337.aspx', description: 'Western Australia DMIRS open pit ground control guideline' },
+          { label: 'CSIRO Large Open Pit (LOP) Guidelines', url: 'https://www.csiro.au/en/research/natural-environment/land/open-pit-slope-design', description: 'CSIRO LOP Guidelines — slope design and ground control reference' },
+        ],
         type: 'select',
         required: true,
         options: [
@@ -357,6 +366,10 @@ export const FIELD_GROUPS: FieldGroup[] = [
       {
         key: 'msha_id',
         label: 'MSHA Mine ID',
+        lookups: [
+          { label: 'MSHA Mine Data Retrieval System', url: 'https://arlweb.msha.gov/drs/drshome.htm', description: 'Find your MSHA mine ID and compliance history' },
+          { label: 'MSHA Mine Locator Map', url: 'https://www.msha.gov/data-and-reports/mine-data-retrieval-system', description: 'Search mines by name, state, or commodity' },
+        ],
         type: 'text',
         placeholder: 'e.g. 1000025',
         hint: 'MSHA Mine ID is required for 30 CFR Part 50 incident reporting submissions.',
@@ -558,6 +571,10 @@ export const FIELD_GROUPS: FieldGroup[] = [
       {
         key: 'stability_software',
         label: 'Slope Stability Analysis Software',
+        lookups: [
+          { label: 'Rocscience — Slide2/3, RS2, Dips, SWedge', url: 'https://www.rocscience.com', description: 'Rocscience geotechnical software suite' },
+          { label: 'Itasca — FLAC3D, UDEC', url: 'https://www.itascacg.com', description: 'Continuum and discontinuum modelling software' },
+        ],
         type: 'text',
         placeholder: 'e.g. Rocscience Slide2, FLAC3D, Dips, SWedge',
         hint: 'List all software used — both limit equilibrium and numerical methods if applicable.',
@@ -805,6 +822,10 @@ export const FIELD_GROUPS: FieldGroup[] = [
       {
         key: 'tsf_standard',
         label: 'Applicable TSF Standard',
+        lookups: [
+          { label: 'Global Industry Standard on Tailings Management (GISTM)', url: 'https://globaltailingsreview.org/global-industry-standard/', description: 'GISTM 2020 — international tailings standard' },
+          { label: 'MAC Tailings Guide (Canada)', url: 'https://mining.ca/resources/guides-manuals/mac-tailings-guide/', description: 'Mining Association of Canada tailings management guide' },
+        ],
         type: 'text',
         placeholder: 'e.g. GISTM 2020; MAC 2019 (Canada); ICMM',
         sectionRef: '4A.4',
