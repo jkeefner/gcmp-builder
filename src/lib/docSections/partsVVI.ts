@@ -99,7 +99,7 @@ export function buildPartV(d: GlobalData, ss: SectionStates): DocNode[] {
           guidanceBox('Why This Section Matters', [
             'Third-party reviews by independent geotechnical professionals provide an objective check on slope design and GCMP adequacy.',
             'For large, complex, or high-consequence operations, external reviews are best practice and increasingly required by lenders, insurers, and corporate governance.',
-            'Idaho and Nevada operations: external geotechnical review may be required as a condition of operating permits — verify permit conditions.',
+            'Utah and Nevada operations: external geotechnical review may be required as a condition of operating permits — verify permit conditions.',
           ]),
           metaTable([
             ['External Review Frequency', '', 'external_review_freq'],

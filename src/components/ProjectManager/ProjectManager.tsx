@@ -119,7 +119,7 @@ export function ProjectManager() {
             <div style={{ flex: 1 }}>
               <input
                 className="form-input"
-                placeholder="Mine name — e.g. Thompson Creek Mine"
+                placeholder="Mine name — e.g. Bingham Canyon Mine"
                 value={newName}
                 onChange={e => setNewName(e.target.value)}
                 onKeyDown={handleKeyDown}

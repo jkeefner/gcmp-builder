@@ -306,7 +306,7 @@ export function buildPartIII(d: GlobalData, ss: SectionStates): DocNode[] {
             '[CONDITIONAL] — Required if PGA >0.05g or if regulatory requirement exists', 'Sections 3.2, 6.3'),
           ...narrativeBlock(ss['6.6']?.narrative ?? ''),
           guidanceBox('Why This Section Matters', [
-            'For operations in the western US (Idaho, Nevada, Montana, Utah), seismic design loads are often significant and may be required by state operating permits.',
+            'For operations in the western US (Utah, Nevada, Colorado, Montana), seismic design loads are often significant and may be required by state operating permits.',
             'Pseudo-static seismic coefficients used in stability analysis must be documented and their basis stated.',
             'CSIRO LOP and WA DMIRS both address seismic loading as a special condition.',
           ]),
